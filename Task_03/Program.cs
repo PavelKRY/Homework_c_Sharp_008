@@ -12,17 +12,14 @@ int [,] array = new int [5,5];
 Random rnd = new Random();
 void FillArray(int[,] array)
 {
-    
+    int tmp = 10;
     for(int i = 0; i< array.GetLength(0); i++)
     {
         for(int j = 0; j< array.GetLength(1); j++)
         {
-            int tmp = rnd.Next(10,100);
-            array[i,j] =rnd.Next(10,100);
-            while(tmp == array[i,j])
-            {
-            array[i,j] = rnd.Next(10,100);
-            }
+            
+            array[i,j] = tmp;
+            tmp+=1;
         }
     }
 }
