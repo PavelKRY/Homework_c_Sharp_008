@@ -10,51 +10,68 @@
 Console.WriteLine("Введите число строк");
 int rows = Convert.ToInt32(Console.ReadLine());
 Console.WriteLine("Введите число столбцов");
-int column = Convert.ToInt32(Console.ReadLine());
-int[,] array = new int[rows, column];
-if(array.GetLength(0)*array.GetLength(1)<=50)
-{
+int colomns = Convert.ToInt32(Console.ReadLine());
+int[,] array = new int[rows, colomns];
 Random rnd = new Random();
-void FillArray(int[,] array)
+
+
+if (rows * colomns <= 50)
 {
-    for (int i = 0; i < array.GetLength(0); i++)
+    int value;
+    bool Contains(int[,] arr, int value)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
+        bool flag = false;
+        for (int i = 0; i < arr.GetLength(0); i++)
         {
-
-            array[i, j] = rnd.Next(10, 100);
-            for (int m = 0; m < array.GetLength(0); m++)
+            for (int j = 0; j < arr.GetLength(1); j++)
             {
-                for (int n = 0; n < array.GetLength(1); n++)
-                {
-
-                    if (array[i, j] == array[m, n])
-                    {
-                        array[m, n] = rnd.Next(10, 100);
-                    }
-                }
+                if (value == arr[i, j])
+                    flag = true;
             }
         }
+        return flag;
     }
-}
 
-
-
-void PrintArray(int[,] array)
-{
-    for (int i = 0; i < array.GetLength(0); i++)
+    void FillArray(int[,] array)
     {
-        for (int j = 0; j < array.GetLength(1); j++)
-        {
-            Console.Write(" " + array[i, j]);
-        }
-        Console.WriteLine(" - Строка номер " + (i + 1));
-    }
-}
 
-FillArray(array);
-PrintArray(array);
-Console.WriteLine(string.Empty);
+        int tmp = rnd.Next(10, 100);
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                value = rnd.Next(10, 100);
+                while (Contains(array, value) == true)
+                {
+                    value = rnd.Next(10, 100);
+                }
+                array[i, j] = value;
+
+
+            }
+        }
+
+
+    }
+
+
+
+    void PrintArray(int[,] array)
+    {
+        for (int i = 0; i < array.GetLength(0); i++)
+        {
+            for (int j = 0; j < array.GetLength(1); j++)
+            {
+                Console.Write(" " + array[i, j]);
+            }
+            Console.WriteLine(" - Строка номер " + (i + 1));
+        }
+    }
+
+    FillArray(array);
+    PrintArray(array);
+    Console.WriteLine(string.Empty);
+
 }
 else
 {
